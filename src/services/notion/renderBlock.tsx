@@ -4,6 +4,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import type { blockWithChildren } from './type';
 
+// Type
 type richText = {
   type: 'text';
   text: {
@@ -43,37 +44,38 @@ type richText = {
   href: string | null;
 };
 
+// Component
 export const renderBlock = (block: blockWithChildren) => {
   const { type, id } = block;
 
   switch (type) {
     case 'paragraph':
       return (
-        <p>
+        <p id={id}>
           <TextComponent richTexts={block.paragraph.text as richText[]} />
         </p>
       );
     case 'heading_1':
       return (
-        <h1>
+        <h1 id={id}>
           <TextComponent richTexts={block.heading_1.text as richText[]} />
         </h1>
       );
     case 'heading_2':
       return (
-        <h2>
+        <h2 id={id}>
           <TextComponent richTexts={block.heading_2.text as richText[]} />
         </h2>
       );
     case 'heading_3':
       return (
-        <h3>
+        <h3 id={id}>
           <TextComponent richTexts={block.heading_3.text as richText[]} />
         </h3>
       );
     case 'bulleted_list_item':
       return (
-        <li>
+        <li id={id}>
           <TextComponent richTexts={block.bulleted_list_item.text as richText[]} />
         </li>
       );
@@ -94,7 +96,6 @@ export const renderBlock = (block: blockWithChildren) => {
   }
 };
 
-/// Notionの1ブロックのテキストをReactのコンポーネント要素として返す
 const TextComponent = ({ richTexts }: { richTexts: richText[] }) => {
   if (!richTexts) return null;
 

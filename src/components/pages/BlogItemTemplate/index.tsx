@@ -1,8 +1,9 @@
 // Import
 import { BaseBlogLayout } from 'components/layouts/BaseBlogLayout';
 import { HighlightBody } from 'components/commons/molecules/HighlightBody';
+import { TableOfContents } from 'components/commons/organisms/TableOfContents';
 import { TitleArea } from './TitleArea';
-import { getBlogtitle, getBlogTags, getBlogCreatedAt } from 'services/notion';
+import { getBlogtitle, getBlogTags, getBlogCreatedAt, getTableOfContents } from 'services/notion';
 import type { NotionProperties, blockWithChildren } from 'services/notion';
 import styles from './styles.module.scss';
 
@@ -18,6 +19,7 @@ export const BlogItemTemplate = ({ properties, blocks }: Props) => {
   const title = getBlogtitle(properties);
   const tags = getBlogTags(properties);
   const createdAt = getBlogCreatedAt(properties);
+  const tableOfContents = getTableOfContents(blocks);
 
   // DOM
   return (
@@ -30,7 +32,7 @@ export const BlogItemTemplate = ({ properties, blocks }: Props) => {
               <TitleArea title={title} tags={tags} createdAt={createdAt} />
 
               {/* 目次 */}
-              {/* <TableOfContents tableOfContents={tableOfContents} /> */}
+              <TableOfContents tableOfContents={tableOfContents} />
 
               {/* 記事本文 */}
               <HighlightBody blocks={blocks} />
